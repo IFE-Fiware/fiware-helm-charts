@@ -353,6 +353,8 @@ spec:
             {{- end }}
           resources:
             {{- toYaml .Values.deployment.resources | nindent 12 }}
+          securityContext:
+            {{- toYaml .Values.deployment.securityContext | nindent 12 }}
       {{- if .Values.deployment.sidecars }}
         {{- toYaml .Values.deployment.sidecars | nindent 8 }}
       {{- end }}
