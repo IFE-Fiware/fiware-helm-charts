@@ -3,4 +3,4 @@ check-version-increment: true
 debug: true
 target-branch: main
 chart-repos:
-  - fiware=https://fiware.github.io/helm-charts
+  - fiware=https://alekslt-ife.github.io/fiware-helm-charts
