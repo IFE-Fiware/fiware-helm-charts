@@ -1,8 +1,9 @@
 {{- if .Values.autoscaling.enabled -}}
-apiVersion: autoscaling/v2beta2
+apiVersion: autoscaling/{{ .Values.autoscaling.apiVersion | default "v2beta2" }}
 kind: HorizontalPodAutoscaler
 metadata:
   name: {{ include "orion.fullname" . }}
+  namespace: {{ $.Release.Namespace | quote }}
   labels:
     {{ include "orion.labels" . | nindent 4 }}
 spec:

@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ include "orion.fullname" . }}
+  namespace: {{ $.Release.Namespace | quote }}
   labels:
     {{ include "orion.labels" . | nindent 4 }}
 spec:
@@ -201,11 +202,10 @@ spec:
               {{- end }}
             - name: {{ .Values.broker.envPrefix }}MONGO_DB
               value: {{ .Values.broker.db.name }}
-            {{ $numHosts := len .Values.broker.db.hosts }}
-            {{- if gt $numHosts 1 -}}
+            {{- if .Values.broker.db.replicaSetEnabled }}
             - name: {{ .Values.broker.envPrefix }}MONGO_REPLICA_SET
               value: {{ .Values.broker.db.replicaSet }}
-            {{- end }}
+             {{- end }}
             {{- if .Values.broker.db.auth }}
             - name: {{ .Values.broker.envPrefix }}MONGO_USER
               value: {{ .Values.broker.db.auth.user }}
